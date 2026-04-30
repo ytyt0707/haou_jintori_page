@@ -3,59 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>陣取りゲーム UI改造Wiki</title>
+    <title>陣取りゲーム 総合攻略・ツールWiki</title>
     <style>
-        /* Wiki風のシンプルなデザイン */
+        /* 基本スタイル */
         body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; line-height: 1.6; }
-        header { background-color: #202124; color: white; padding: 20px; text-align: center; border-bottom: 4px solid #007bff; }
-        .container { max-width: 900px; margin: 20px auto; background: white; padding: 30px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { border-left: 5px solid #007bff; padding-left: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 40px; }
-        .info-box { background-color: #e7f3ff; border: 1px solid #b3d7ff; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        header { background-color: #202124; color: white; padding: 30px 20px; text-align: center; border-bottom: 4px solid #007bff; }
+        .container { max-width: 1000px; margin: 20px auto; background: white; padding: 30px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         
-        /* ブックマークレット配布用ボタン */
-        .tool-card { border: 1px solid #eee; padding: 20px; margin-bottom: 20px; border-radius: 8px; transition: 0.3s; }
-        .tool-card:hover { border-color: #007bff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .btn-bookmarklet { display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; cursor: move; border: none; }
-        .btn-bookmarklet:hover { background-color: #0056b3; }
+        /* 目次スタイル */
+        .toc { background: #f9f9f9; border: 1px solid #aaa; padding: 15px; display: inline-block; margin-bottom: 30px; min-width: 250px; }
+        .toc-title { font-weight: bold; text-align: center; margin-bottom: 10px; display: block; }
+        .toc ul { list-style: none; padding-left: 20px; margin: 0; }
+        .toc li { margin: 5px 0; }
+        .toc a { text-decoration: none; color: #007bff; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* セクション見出し */
+        h2 { border-left: 5px solid #007bff; padding-left: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 50px; }
+        h3 { border-bottom: 2px solid #eee; padding-bottom: 3px; margin-top: 30px; color: #444; }
+
+        /* テーブルスタイル（ランキング用） */
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #f8f9fa; }
+        tr:nth-child(even) { background-color: #fafafa; }
+
+        /* ツールカード */
+        .tool-card { border: 1px solid #eee; padding: 20px; margin: 20px 0; border-radius: 8px; background: #fff; }
+        .btn-bookmarklet { display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: move; }
         
-        code { background: #f8f9fa; padding: 2px 5px; border: 1px solid #ddd; border-radius: 3px; font-family: monospace; }
-        footer { text-align: center; margin-top: 50px; padding: 20px; font-size: 0.8em; color: #777; }
+        .how-to-box { background-color: #fff9db; border: 1px solid #fab005; padding: 15px; border-radius: 4px; }
+        footer { text-align: center; margin-top: 50px; padding: 20px; font-size: 0.8em; color: #777; border-top: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>陣取りゲーム UI改造Wiki</h1>
-    <p>快適な領土拡大のためのカスタムツール集</p>
+    <h1>陣取りゲーム 総合攻略・ツールWiki</h1>
+    <p>有志による情報集約・カスタマイズガイド</p>
 </header>
 
 <div class="container">
-    <div class="info-box">
-        <strong>使い方：</strong> 下のボタンをブラウザの<strong>ブックマークバーにドラッグ＆ドロップ</strong>して登録してください。ゲーム画面を開いている時に、保存したブックマークをクリックすると反映されます。
-    </div>
-
-    <h2>1. 戦闘視認性アップ系</h2>
     
-    <div class="tool-card">
-        <h3>アイコンサイズ縮小 & 名前表示</h3>
-        <p>乱戦時にプレイヤーアイコンを小さくして、背後の名前や重なりを見やすくします。</p>
-        <!-- 下の href="" の中に、以前作ったコードを入れます -->
-        <a class="btn-bookmarklet" href="javascript:(function(){ /* ここに以前のコードを貼る */ alert('アイコンを縮小しました！'); })();">アイコン縮小</a>
+    <!-- 概要セクション -->
+    <section id="about">
+        <h2>このゲームについて</h2>
+        <p>（ここにゲームの概要や、どんなゲームなのかという軽い説明文を書いてください）</p>
+    </section>
+
+    <!-- 目次（自動ジャンプ用） -->
+    <div class="toc">
+        <span class="toc-title">目次</span>
+        <ul>
+            <li><a href="#ranking">1. 過去のランキング一覧</a></li>
+            <li><a href="#bookmarklet-guide">2. ブックマークレットの導入方法</a></li>
+            <li><a href="#bookmarklet-list">3. ブックマークレット一覧</a></li>
+            <li><a href="#links">4. 各種リンク紹介</a></li>
+        </ul>
     </div>
 
-    <div class="tool-card">
-        <h3>移動ラインの細分化</h3>
-        <p>画面を埋め尽くす移動線を細くし、ユニットの動きを把握しやすくします。</p>
-        <a class="btn-bookmarklet" href="javascript:(function(){ /* ここに以前のコードを貼る */ alert('ラインを細くしました！'); })();">ラインを細くする</a>
-    </div>
+    <!-- 1. ランキング -->
+    <section id="ranking">
+        <h2>1. 過去のランキング一覧</h2>
+        <p>歴代の猛者たちの記録です。</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>シーズン</th>
+                    <th>1位</th>
+                    <th>2位</th>
+                    <th>3位</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2026年4月期</td>
+                    <td>プレイヤーA</td>
+                    <td>プレイヤーB</td>
+                    <td>プレイヤーC</td>
+                </tr>
+                <!-- ここに行を追加していく -->
+            </tbody>
+        </table>
+    </section>
 
-    <h2>2. パフォーマンス向上系</h2>
-    <p>スマホや低スペックPCでの動作を安定させるツール（準備中）</p>
+    <!-- 2. 導入方法 -->
+    <section id="bookmarklet-guide">
+        <h2>2. ブックマークレットの導入方法</h2>
+        <div class="how-to-box">
+            <p><strong>PCの場合：</strong> 下にある青いボタンを、ブラウザの「ブックマークバー」に直接マウスでドラッグ＆ドロップしてください。</p>
+            <p><strong>スマホの場合：</strong> このページのコードをコピーし、適当なブックマークのURL欄に貼り付けて保存してください。</p>
+        </div>
+    </section>
+
+    <!-- 3. ツール一覧 -->
+    <section id="bookmarklet-list">
+        <h2>3. ブックマークレット一覧</h2>
+        
+        <div class="tool-card">
+            <h3>プレイヤーアイコン縮小</h3>
+            <p>混戦時に視認性を確保します。</p>
+            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">アイコン縮小</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>移動ライン細分化</h3>
+            <p>画面をスッキリさせます。</p>
+            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">ラインを細くする</a>
+        </div>
+    </section>
+
+    <!-- 4. リンク紹介 -->
+    <section id="links">
+        <h2>4. 各種リンク紹介</h2>
+        <ul>
+            <li><a href="#" target="_blank">ゲーム公式サイト</a></li>
+            <li><a href="#" target="_blank">公式Discord / コミュニティ</a></li>
+            <li><a href="#" target="_blank">関連ツール作者Twitter</a></li>
+        </ul>
+    </section>
 
 </div>
 
 <footer>
-    <p>&copy; 2026 haou_jintori_page. Created with Gemini.</p>
+    <p>&copy; 2026 haou_jintori_page. 管理者：あなたの名前</p>
 </footer>
 
 </body>
