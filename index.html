@@ -109,145 +109,30 @@
         </ul>
     </section>
 
-    <!-- 3. ブックマークレット一覧 -->
-<section id="bookmarklet">
-    <h2>3. ブックマークレット一覧</h2>
-    
-    <style>
-        /* 推奨機器ラベルのスタイル */
-        .device-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: bold;
-            margin-left: 8px;
-            color: white;
-            vertical-align: middle;
-            letter-spacing: 0;
-        }
-        .bg-pc { background-color: #ff9800; }      /* オレンジ */
-        .bg-tablet { background-color: #4caf50; }  /* 緑 */
-        .bg-mobile { background-color: #2196f3; }  /* 青 */
-
-        /* ブックマークレット項目の装飾（枠なし・下線のみ） */
-        .bookmarklet-item {
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #ddd; /* 項目間の区切り線 */
-        }
-
-        /* コードボックス（コピペ用） */
-        .code-box {
-            background-color: #2d2d2d;
-            color: #ccc;
-            padding: 15px;
-            border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.85em;
-            overflow-x: auto;
-            margin: 15px 0;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border-left: 4px solid #007bff; /* 左側にアクセントライン */
-        }
+<!-- 3. ブックマークレット -->
+    <section id="bookmarklet">
+        <h2>3. ブックマークレット一覧</h2>
         
-        .link-hatena {
-            display: inline-block;
-            color: #007bff;
-            text-decoration: none;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .link-hatena:hover {
-            text-decoration: underline;
-        }
-    </style>
+        <h3>ブックマークレット導入方法</h3>
+        <div class="how-to-box">
+            <p><strong>PCの場合：</strong> 下にある青いボタンを、ブラウザの「ブックマークバー」に直接マウスでドラッグ＆ドロップしてください。</p>
+            <p><strong>スマホの場合：</strong> 下の「コードを表示」から中身をコピーし、ブラウザのブックマークのURL欄に貼り付けて保存してください。</p>
+        </div>
 
-    <!-- 3. ブックマークレット一覧 -->
-<section id="bookmarklet">
-    <h2>3. ブックマークレット一覧</h2>
-    
-    <style>
-        /* 推奨機器ラベル */
-        .device-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: bold;
-            margin-left: 8px;
-            color: white;
-            vertical-align: middle;
-        }
-        .bg-pc { background-color: #ff9800; }
-        .bg-tablet { background-color: #4caf50; }
-        .bg-mobile { background-color: #2196f3; }
-
-        .bookmarklet-item {
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #ddd;
-        }
-
-        /* 外部リンクマーク（↗）を自動でつける設定 */
-        .external-link::after {
-            content: " ↗"; /* スペースと矢印 */
-            font-size: 0.9em;
-            margin-left: 2px;
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-        /* ホバー時に矢印が少し動く遊び心 */
-        .external-link:hover::after {
-            transform: translate(2px, -2px);
-        }
-
-        .code-box {
-            background-color: #2d2d2d;
-            color: #ccc;
-            padding: 15px;
-            border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.85em;
-            overflow-x: auto;
-            margin: 15px 0;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border-left: 4px solid #007bff;
-        }
+        <h3>ブックマークレット一覧</h3>
         
-        .link-hatena {
-            display: inline-block;
-            color: #007bff;
-            text-decoration: none;
-            font-size: 0.9em;
-            margin-top: 5px;
-            font-weight: bold;
-        }
-        .link-hatena:hover {
-            text-decoration: underline;
-        }
-    </style>
+        <div class="tool-card">
+            <h3>1. プレイヤーアイコン縮小</h3>
+            <p>混戦時に視認性を確保します。名前の表示を維持しつつアイコンだけを小さくします。</p>
+            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">アイコン縮小</a>
+        </div>
 
-    <h3>ブックマークレット一覧</h3>
-    
-    <!-- 項目 1 -->
-    <div class="bookmarklet-item">
-        <h3 style="border-bottom: none; margin-bottom: 10px;">
-            1. ブーストボタンタップ可能化 
-            <span class="device-badge bg-pc">PC</span>
-            <span class="device-badge bg-tablet">タブレット</span>
-        </h3>
-        
-        <p style="margin: 5px 0;">PC、タブレットではブーストボタンをタップ・クリックで押すことが出来ない問題を解決できます。</p>
-        
-        <!-- href="..." の中に実際のURLを入れてください -->
-        <a href="https://example.com/hatena-link" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
-        
-        <div class="code-box">javascript:(function(){/* ここにブーストボタンのコードを貼る */})();</div>
-    </div>
-</section>
+        <div class="tool-card">
+            <h3>2. 移動ライン細分化</h3>
+            <p>画面をスッキリさせ、ユニットの動線を把握しやすくします。</p>
+            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">ラインを細くする</a>
+        </div>
+    </section>
 
     <!-- 4. リンク紹介 -->
     <section id="links">
