@@ -164,6 +164,72 @@
         }
     </style>
 
+    <!-- 3. ブックマークレット一覧 -->
+<section id="bookmarklet">
+    <h2>3. ブックマークレット一覧</h2>
+    
+    <style>
+        /* 推奨機器ラベル */
+        .device-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-left: 8px;
+            color: white;
+            vertical-align: middle;
+        }
+        .bg-pc { background-color: #ff9800; }
+        .bg-tablet { background-color: #4caf50; }
+        .bg-mobile { background-color: #2196f3; }
+
+        .bookmarklet-item {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        /* 外部リンクマーク（↗）を自動でつける設定 */
+        .external-link::after {
+            content: " ↗"; /* スペースと矢印 */
+            font-size: 0.9em;
+            margin-left: 2px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        /* ホバー時に矢印が少し動く遊び心 */
+        .external-link:hover::after {
+            transform: translate(2px, -2px);
+        }
+
+        .code-box {
+            background-color: #2d2d2d;
+            color: #ccc;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            border-left: 4px solid #007bff;
+        }
+        
+        .link-hatena {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .link-hatena:hover {
+            text-decoration: underline;
+        }
+    </style>
+
     <h3>ブックマークレット一覧</h3>
     
     <!-- 項目 1 -->
@@ -176,24 +242,11 @@
         
         <p style="margin: 5px 0;">PC、タブレットではブーストボタンをタップ・クリックで押すことが出来ない問題を解決できます。</p>
         
-        <a href="#" class="link-hatena">▶ Hatenaリンク</a>
+        <!-- href="..." の中に実際のURLを入れてください -->
+        <a href="https://example.com/hatena-link" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
         
         <div class="code-box">javascript:(function(){/* ここにブーストボタンのコードを貼る */})();</div>
     </div>
-
-    <!-- 項目 2 (例) -->
-    <div class="bookmarklet-item">
-        <h3 style="border-bottom: none; margin-bottom: 10px;">
-            2. プレイヤーアイコン縮小 
-            <span class="device-badge bg-pc">PC</span>
-            <span class="device-badge bg-tablet">タブレット</span>
-            <span class="device-badge bg-mobile">スマホ</span>
-        </h3>
-        <p style="margin: 5px 0;">混戦時に視認性を確保します。</p>
-        
-        <div class="code-box">javascript:(function(){/* ここにコードを貼る */})();</div>
-    </div>
-
 </section>
 
     <!-- 4. リンク紹介 -->
