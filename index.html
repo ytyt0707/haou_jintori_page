@@ -2,10 +2,61 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>陣取りツール配布所(仮)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陣取りゲーム UI改造Wiki</title>
+    <style>
+        /* Wiki風のシンプルなデザイン */
+        body { font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; line-height: 1.6; }
+        header { background-color: #202124; color: white; padding: 20px; text-align: center; border-bottom: 4px solid #007bff; }
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 30px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { border-left: 5px solid #007bff; padding-left: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 40px; }
+        .info-box { background-color: #e7f3ff; border: 1px solid #b3d7ff; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        
+        /* ブックマークレット配布用ボタン */
+        .tool-card { border: 1px solid #eee; padding: 20px; margin-bottom: 20px; border-radius: 8px; transition: 0.3s; }
+        .tool-card:hover { border-color: #007bff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .btn-bookmarklet { display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; cursor: move; border: none; }
+        .btn-bookmarklet:hover { background-color: #0056b3; }
+        
+        code { background: #f8f9fa; padding: 2px 5px; border: 1px solid #ddd; border-radius: 3px; font-family: monospace; }
+        footer { text-align: center; margin-top: 50px; padding: 20px; font-size: 0.8em; color: #777; }
+    </style>
 </head>
 <body>
-    <h1>Vercelで公開テスト中！</h1>
-    <p>ここにブックマークレットを並べていく予定です。</p>
+
+<header>
+    <h1>陣取りゲーム UI改造Wiki</h1>
+    <p>快適な領土拡大のためのカスタムツール集</p>
+</header>
+
+<div class="container">
+    <div class="info-box">
+        <strong>使い方：</strong> 下のボタンをブラウザの<strong>ブックマークバーにドラッグ＆ドロップ</strong>して登録してください。ゲーム画面を開いている時に、保存したブックマークをクリックすると反映されます。
+    </div>
+
+    <h2>1. 戦闘視認性アップ系</h2>
+    
+    <div class="tool-card">
+        <h3>アイコンサイズ縮小 & 名前表示</h3>
+        <p>乱戦時にプレイヤーアイコンを小さくして、背後の名前や重なりを見やすくします。</p>
+        <!-- 下の href="" の中に、以前作ったコードを入れます -->
+        <a class="btn-bookmarklet" href="javascript:(function(){ /* ここに以前のコードを貼る */ alert('アイコンを縮小しました！'); })();">アイコン縮小</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>移動ラインの細分化</h3>
+        <p>画面を埋め尽くす移動線を細くし、ユニットの動きを把握しやすくします。</p>
+        <a class="btn-bookmarklet" href="javascript:(function(){ /* ここに以前のコードを貼る */ alert('ラインを細くしました！'); })();">ラインを細くする</a>
+    </div>
+
+    <h2>2. パフォーマンス向上系</h2>
+    <p>スマホや低スペックPCでの動作を安定させるツール（準備中）</p>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 haou_jintori_page. Created with Gemini.</p>
+</footer>
+
 </body>
 </html>
