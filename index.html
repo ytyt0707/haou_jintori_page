@@ -109,30 +109,67 @@
         </ul>
     </section>
 
-    <!-- 3. ブックマークレット -->
-    <section id="bookmarklet">
-        <h2>3. ブックマークレット一覧</h2>
-        
-        <h3>ブックマークレット導入方法</h3>
-        <div class="how-to-box">
-            <p><strong>PCの場合：</strong> 下にある青いボタンを、ブラウザの「ブックマークバー」に直接マウスでドラッグ＆ドロップしてください。</p>
-            <p><strong>スマホの場合：</strong> 下の「コードを表示」から中身をコピーし、ブラウザのブックマークのURL欄に貼り付けて保存してください。</p>
-        </div>
+    <!-- 3. ブックマークレット一覧 -->
+<section id="bookmarklet">
+    <h2>3. ブックマークレット一覧</h2>
+    
+    <style>
+        /* 推奨機器ラベルのスタイル */
+        .device-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 5px;
+            color: white;
+            vertical-align: middle;
+        }
+        .bg-pc { background-color: #ff9800; }      /* オレンジ */
+        .bg-tablet { background-color: #4caf50; }  /* 緑 */
+        .bg-mobile { background-color: #2196f3; }  /* 青 */
 
-        <h3>ブックマークレット一覧</h3>
-        
-        <div class="tool-card">
-            <h3>1. プレイヤーアイコン縮小</h3>
-            <p>混戦時に視認性を確保します。名前の表示を維持しつつアイコンだけを小さくします。</p>
-            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">アイコン縮小</a>
-        </div>
+        /* コードコピー用のボックス */
+        .code-box {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .link-hatena {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+    </style>
 
-        <div class="tool-card">
-            <h3>2. 移動ライン細分化</h3>
-            <p>画面をスッキリさせ、ユニットの動線を把握しやすくします。</p>
-            <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">ラインを細くする</a>
-        </div>
-    </section>
+    <h3>ブックマークレット一覧</h3>
+    
+    <div class="tool-card">
+        <h3>
+            1. ブーストボタンタップ可能化 
+            <span class="device-badge bg-pc">PC</span>
+            <span class="device-badge bg-tablet">タブレット</span>
+        </h3>
+        <p>PC、タブレットではブーストボタンをタップ・クリックで押すことが出来ない問題を解決できます。</p>
+        
+        <a href="#" class="link-hatena">Hatenaリンク</a>
+        
+        <div class="code-box">javascript:(function(){/* ここにブーストボタンのコードを貼る */})();</div>
+        
+        <a class="btn-bookmarklet" href="javascript:(function(){ alert('コードが設定されていません'); })();">
+            ドラッグ用ボタン
+        </a>
+    </div>
+
+    <!-- 他のツールを追加する場合は、ここから下の tool-card をコピーして増やせます -->
+</section>
 
     <!-- 4. リンク紹介 -->
     <section id="links">
