@@ -158,15 +158,15 @@
             font-size: 0.85em;
             overflow-x: auto;
             margin-top: 15px;
-            margin-bottom: 10px; /* ボタンとの隙間 */
+            margin-bottom: 10px;
             white-space: pre-wrap;
             word-break: break-all;
             border-left: 4px solid #007bff;
         }
 
-        /* コピーボタン（ボックスの下に配置） */
+        /* コピーボタン（左寄せに配置） */
         .copy-btn-container {
-            text-align: right; /* 右寄せ */
+            text-align: left; /* 左寄せに変更 */
             margin-bottom: 15px;
         }
         .copy-btn {
@@ -269,7 +269,6 @@
 
 <script>
 function copyCode(btn) {
-    // ボタンの親要素の「一つ前」にある code-box を探す
     const codeBox = btn.parentElement.previousElementSibling;
     const text = codeBox.innerText;
     
