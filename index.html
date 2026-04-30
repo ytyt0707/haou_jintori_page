@@ -23,7 +23,11 @@
         h2 { border-left: 5px solid #007bff; padding-left: 15px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 50px; }
         h3 { border-bottom: 2px solid #eee; padding-bottom: 3px; margin-top: 30px; color: #444; }
 
-        /* テーブルスタイル（ランキング用） */
+        /* リストスタイル */
+        .content-list { padding-left: 20px; }
+        .content-list li { margin-bottom: 10px; }
+
+        /* テーブルスタイル */
         table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
         th { background-color: #f8f9fa; }
@@ -33,7 +37,7 @@
         .tool-card { border: 1px solid #eee; padding: 20px; margin: 20px 0; border-radius: 8px; background: #fff; }
         .btn-bookmarklet { display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: move; }
         
-        .how-to-box { background-color: #fff9db; border: 1px solid #fab005; padding: 15px; border-radius: 4px; }
+        .how-to-box { background-color: #fff9db; border: 1px solid #fab005; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
         footer { text-align: center; margin-top: 50px; padding: 20px; font-size: 0.8em; color: #777; border-top: 1px solid #ddd; }
     </style>
 </head>
@@ -54,21 +58,28 @@
         <p>（ここにゲームの概要や、どんなゲームなのかという軽い説明文を書いてください）</p>
     </section>
 
-    <!-- 目次（自動ジャンプ用） -->
+    <!-- 目次 -->
     <div class="toc">
         <span class="toc-title">目次</span>
         <ul>
             <li><a href="#ranking">1. プレイヤー図鑑・ランキング一覧</a></li>
-            <li><a href="#bookmarklet-guide">2. 陣取りプレイヤーによるお絵描き都道府県</a></li>
-            <li><a href="#bookmarklet-list">3. ブックマークレット一覧</a></li>
+            <li><a href="#drawing">2. 陣取りプレイヤーによるお絵描き都道府県</a></li>
+            <li><a href="#bookmarklet">3. ブックマークレット一覧</a></li>
             <li><a href="#links">4. 各種リンク紹介</a></li>
         </ul>
     </div>
 
-    <!-- 1. ランキング -->
+    <!-- 1. プレイヤー図鑑・ランキング -->
     <section id="ranking">
-        <h2>1. 過去のランキング一覧</h2>
-        <p>歴代の猛者たちの記録です。</p>
+        <h2>1. プレイヤー図鑑・ランキング一覧</h2>
+        
+        <h3>プレイヤー図鑑Xアカウント</h3>
+        <ul class="content-list">
+            <li><a href="#" target="_blank">プレイヤー図鑑公式X (@アカウント名)</a></li>
+            <li>図鑑の更新情報やプレイヤー紹介が投稿されています。</li>
+        </ul>
+
+        <h3>過去に製作されたランキング</h3>
         <table>
             <thead>
                 <tr>
@@ -85,33 +96,40 @@
                     <td>プレイヤーB</td>
                     <td>プレイヤーC</td>
                 </tr>
-                <!-- ここに行を追加していく -->
             </tbody>
         </table>
     </section>
 
-    <!-- 2. 導入方法 -->
-    <section id="bookmarklet-guide">
-        <h2>2. ブックマークレットの導入方法</h2>
-        <div class="how-to-box">
-            <p><strong>PCの場合：</strong> 下にある青いボタンを、ブラウザの「ブックマークバー」に直接マウスでドラッグ＆ドロップしてください。</p>
-            <p><strong>スマホの場合：</strong> このページのコードをコピーし、適当なブックマークのURL欄に貼り付けて保存してください。</p>
-        </div>
+    <!-- 2. お絵描き都道府県 -->
+    <section id="drawing">
+        <h2>2. 陣取りプレイヤーによるお絵描き都道府県</h2>
+        <ul class="content-list">
+            <li><a href="#" target="_blank">お絵描き都道府県の陣取りプレイヤーまとめスレはこちら</a></li>
+            <li>陣取りプレイヤーたちが描いた個性豊かな都道府県イラストのまとめです。</li>
+        </ul>
     </section>
 
-    <!-- 3. ツール一覧 -->
-    <section id="bookmarklet-list">
+    <!-- 3. ブックマークレット -->
+    <section id="bookmarklet">
         <h2>3. ブックマークレット一覧</h2>
         
+        <h3>ブックマークレット導入方法</h3>
+        <div class="how-to-box">
+            <p><strong>PCの場合：</strong> 下にある青いボタンを、ブラウザの「ブックマークバー」に直接マウスでドラッグ＆ドロップしてください。</p>
+            <p><strong>スマホの場合：</strong> 下の「コードを表示」から中身をコピーし、ブラウザのブックマークのURL欄に貼り付けて保存してください。</p>
+        </div>
+
+        <h3>ブックマークレット一覧</h3>
+        
         <div class="tool-card">
-            <h3>プレイヤーアイコン縮小</h3>
-            <p>混戦時に視認性を確保します。</p>
+            <h3>1. プレイヤーアイコン縮小</h3>
+            <p>混戦時に視認性を確保します。名前の表示を維持しつつアイコンだけを小さくします。</p>
             <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">アイコン縮小</a>
         </div>
 
         <div class="tool-card">
-            <h3>移動ライン細分化</h3>
-            <p>画面をスッキリさせます。</p>
+            <h3>2. 移動ライン細分化</h3>
+            <p>画面をスッキリさせ、ユニットの動線を把握しやすくします。</p>
             <a class="btn-bookmarklet" href="javascript:(function(){ alert('まだコードが設定されていません'); })();">ラインを細くする</a>
         </div>
     </section>
@@ -119,10 +137,10 @@
     <!-- 4. リンク紹介 -->
     <section id="links">
         <h2>4. 各種リンク紹介</h2>
-        <ul>
-            <li><a href="#" target="_blank">ゲーム公式サイト</a></li>
-            <li><a href="#" target="_blank">公式Discord / コミュニティ</a></li>
-            <li><a href="#" target="_blank">関連ツール作者Twitter</a></li>
+        <ul class="content-list">
+            <li><a href="#" target="_blank">onj-Jintoriリンク</a></li>
+            <li><a href="#" target="_blank">おんｊ陣取り総合スレ</a></li>
+            <li><a href="#" target="_blank">おんｊ陣取りのオープンソース</a></li>
         </ul>
     </section>
 
