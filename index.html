@@ -148,45 +148,45 @@
             transform: translate(2px, -2px);
         }
 
-        /* コードボックス周辺 */
-        .code-container {
-            position: relative;
-            margin: 15px 0;
-        }
-
+        /* コードボックス */
         .code-box {
             background-color: #2d2d2d;
             color: #ccc;
             padding: 15px;
-            padding-right: 100px; /* ボタンと重ならないように余白 */
             border-radius: 4px;
             font-family: 'Consolas', 'Monaco', monospace;
             font-size: 0.85em;
             overflow-x: auto;
+            margin-top: 15px;
+            margin-bottom: 10px; /* ボタンとの隙間 */
             white-space: pre-wrap;
             word-break: break-all;
             border-left: 4px solid #007bff;
         }
 
-        /* コピーボタン */
+        /* コピーボタン（ボックスの下に配置） */
+        .copy-btn-container {
+            text-align: right; /* 右寄せ */
+            margin-bottom: 15px;
+        }
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 12px;
+            display: inline-block;
+            padding: 6px 16px;
             background-color: #444;
             color: #fff;
             border: none;
             border-radius: 4px;
-            font-size: 0.8em;
+            font-size: 0.85em;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
         .copy-btn:hover {
             background-color: #555;
         }
         .copy-btn.copied {
             background-color: #28a745;
+            transform: scale(1.05);
         }
         
         .link-hatena {
@@ -206,8 +206,8 @@
     <div class="how-to-box">
         <p><strong>導入手順：</strong></p>
         <ol style="padding-left: 20px;">
-            <li>下の黒いボックスにある<strong>「コピー」ボタン</strong>を押します。</li>
-            <li>ブラウザの適当なブックマークを新規作成（または既存のものを編集）します。</li>
+            <li>下の黒いボックスにある<strong>「コードをコピーする」ボタン</strong>を押します。</li>
+            <li>ブラウザのブックマークを新規作成（または編集）します。</li>
             <li>URL欄に、コピーした内容を<strong>そのまま貼り付けて保存</strong>してください。</li>
             <li>ゲーム画面でそのブックマークをクリックすると反映されます。</li>
         </ol>
@@ -225,9 +225,9 @@
         <p style="margin: 5px 0;">PCやタブレットでブーストボタンが反応しない問題を解決します。</p>
         <a href="https://let.hatelabo.jp/cutfloss/let/lObns9-UgKAA" class="link-hatena external-link" target="_blank">Hatenaリンク(座標ズレ修正)</a>
         
-        <div class="code-container">
-            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-            <div class="code-box">javascript:"https%3A%2F%2Flet.st-hatelabo.com%2Fcutfloss%2Flet%2FlObns9-UgKAA.bookmarklet.js %28arg%29".replace%28%2F%28%5CS%2B%29%5Cs%2B%28%5CS%2A%29%2F%2Cfunction%28s%2Curl%2Carg%29%7Bs%3Ddocument.createElement%28"script"%29%3Bs.charset%3D"utf-8"%3Bs.src%3Durl%2B"%3Fs%3D"%2BencodeURIComponent%28arg%29%3Bdocument.body.appendChild%28s%29%7D%29%3Bvoid%280%29%3B</div>
+        <div class="code-box">javascript:"https%3A%2F%2Flet.st-hatelabo.com%2Fcutfloss%2Flet%2FlObns9-UgKAA.bookmarklet.js %28arg%29".replace%28%2F%28%5CS%2B%29%5Cs%2B%28%5CS%2A%29%2F%2Cfunction%28s%2Curl%2Carg%29%7Bs%3Ddocument.createElement%28"script"%29%3Bs.charset%3D"utf-8"%3Bs.src%3Durl%2B"%3Fs%3D"%2BencodeURIComponent%28arg%29%3Bdocument.body.appendChild%28s%29%7D%29%3Bvoid%280%29%3B</div>
+        <div class="copy-btn-container">
+            <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
         </div>
     </div>
 
@@ -242,9 +242,9 @@
         <p style="margin: 5px 0;">混戦時の視認性を確保します。名前の表示を維持しつつアイコンだけを小さくします。</p>
         <a href="https://example.com/hatena-link2" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
         
-        <div class="code-container">
-            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-            <div class="code-box">javascript:(function(){/* ここにアイコン縮小のコードを貼る */})();</div>
+        <div class="code-box">javascript:(function(){/* ここにアイコン縮小のコードを貼る */})();</div>
+        <div class="copy-btn-container">
+            <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
         </div>
     </div>
 
@@ -259,23 +259,23 @@
         <p style="margin: 5px 0;">画面をスッキリさせ、ユニットの動線を把握しやすくします。</p>
         <a href="https://example.com/hatena-link3" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
         
-        <div class="code-container">
-            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-            <div class="code-box">javascript:(function(){/* ここにライン細分化のコードを貼る */})();</div>
+        <div class="code-box">javascript:(function(){/* ここにライン細分化のコードを貼る */})();</div>
+        <div class="copy-btn-container">
+            <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
         </div>
     </div>
 
 </section>
 
-<!-- コピー機能のスクリプト（bodyの最後の方に置くのが理想ですが、ここでも動きます） -->
 <script>
 function copyCode(btn) {
-    const codeBox = btn.nextElementSibling;
+    // ボタンの親要素の「一つ前」にある code-box を探す
+    const codeBox = btn.parentElement.previousElementSibling;
     const text = codeBox.innerText;
     
     navigator.clipboard.writeText(text).then(() => {
         const originalText = btn.innerText;
-        btn.innerText = "完了！";
+        btn.innerText = "コピー完了！";
         btn.classList.add('copied');
         
         setTimeout(() => {
@@ -284,7 +284,7 @@ function copyCode(btn) {
         }, 2000);
     }).catch(err => {
         console.error('コピー失敗:', err);
-        alert("コピーに失敗しました。手動で選択してください。");
+        alert("コピーに失敗しました。");
     });
 }
 </script>
