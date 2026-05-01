@@ -526,30 +526,7 @@ function copyCode(btn) {
         </li>
     </ul>
 </section>
-    <!-- 5. 交流・コメント欄 -->
-<section id="comments">
-    <h2>5. 交流掲示板</h2>
-    <div class="tool-card">
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                // あなたのGitHub PagesのURLに書き換えてください
-                this.page.url = "https://haou-jintori-page.vercel.app/"; 
-                // ページを識別する名前（そのままでもOK）
-                this.page.identifier = "jintori-main-page"; 
-            };
 
-            (function() {
-                var d = document, s = d.createElement('script');
-                // ↓ココ！【your-shortname】を、手順1で決めた名前に書き換えてください
-                s.src = 'https://jintori.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-</section>
 </div>
 
 <footer>
