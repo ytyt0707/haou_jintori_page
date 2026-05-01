@@ -106,24 +106,18 @@
 .history-entry {
     padding: 15px;
     background-color: #fff;
-    border: 1px solid #eee; /* これが四角い枠 */
+    border: 1px solid #eee; 
     border-radius: 6px;
-    /* margin-bottom を 0 にして、破線との隙間をコントロールします */
-    margin-bottom: 0; 
+    /* 各項目の下に「外側の余白」として破線を入れる */
+    border-bottom: 2px dashed #007bff; /* ここで好きな色の破線を指定 */
+    margin-bottom: 40px;               /* 次の箱との距離をしっかり取る */
+    position: relative;
 }
 
-/* 2. 四角い箱の「外側」に破線を入れる設定 */
-/* 最後の項目以外に適用されます */
-.history-entry:not(:last-child)::after {
-    content: "";
-    display: block;
-    /* 破線のデザイン */
-    border-bottom: 2px dashed #ccc; 
-    /* 四角と破線の間の距離 */
-    margin-top: 20px;
-    margin-bottom: 20px;
-    /* 破線の幅（100%だと四角と同じ幅、少し小さくするとオシャレです） */
-    width: 100%; 
+/* 2. 一番最後の項目だけは破線を消して、余白も調整する */
+.history-entry:last-child {
+    border-bottom: 1px solid #eee; /* 最後は元の四角い枠と同じに戻す */
+    margin-bottom: 0;
 }
     </style>
 
