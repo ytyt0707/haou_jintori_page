@@ -255,22 +255,42 @@
     </div>
 
     <!-- 項目 3 -->
-    <div class="bookmarklet-item">
-        <h3 style="border-bottom: none; margin-bottom: 10px;">
-            3. チームチャットに定型文投稿
-            <span class="device-badge bg-pc">PC</span>
-            <span class="device-badge bg-tablet">タブレット</span>
-            <span class="device-badge bg-mobile">スマホ</span>
-        </h3>
-        <p style="margin: 5px 0;">チーム戦で表示されるチームチャットに定型文を投稿できるようになるぞっ</p>
-        <p style="margin: 5px 0;">ただし2つのブックマークレットを登録しなくてはならず使用方法も変則的なので注意！</p>
-        <a href="https://example.com/hatena-link3" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
-        
-        <div class="code-box">javascript:(function(){/* ここにライン細分化のコードを貼る */})();</div>
-        <div class="copy-btn-container">
-            <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
-        </div>
+<div class="bookmarklet-item">
+    <h3 style="border-bottom: none; margin-bottom: 10px;">
+        3. チームチャットに定型文投稿
+        <span class="device-badge bg-pc">PC</span>
+        <span class="device-badge bg-tablet">タブレット</span>
+        <span class="device-badge bg-mobile">スマホ</span>
+    </h3>
+    <p style="margin: 5px 0;">チーム戦で表示されるチームチャットに定型文を投稿できるようになるぞっ</p>
+    <p style="margin: 5px 0;">
+        <span style="font-size: 0.85em; color: #888;">※この機能を使うには、以下の2つのブックマークレットを両方登録する必要があります。</span>
+    </p>
+    <a href="https://example.com/hatena-link3" class="link-hatena external-link" target="_blank">Hatenaリンク</a>
+
+    <!-- 手順の説明 -->
+    <div style="background-color: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 4px; margin: 15px 0;">
+        <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 0.9em;">【使用方法】</p>
+        <ol style="margin: 0; padding-left: 20px; font-size: 0.85em; color: #555;">
+            <li>まず<strong>「(1)ボタン生成」</strong>を実行して、画面に投稿用ボタンを表示させます。</li>
+            <li>次に<strong>「(2)投稿実行」</strong>を登録したブックマークをクリックすると、定型文が送信されます。</li>
+        </ol>
     </div>
+
+    <!-- ブックマークレット1 -->
+    <p style="margin: 15px 0 5px 0; font-weight: bold; font-size: 0.9em; color: #007bff;">(1) 投稿ボタン生成コード</p>
+    <div class="code-box">javascript:(function(){/* ここにボタン生成のコードを貼る */})();</div>
+    <div class="copy-btn-container">
+        <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
+    </div>
+
+    <!-- ブックマークレット2 -->
+    <p style="margin: 20px 0 5px 0; font-weight: bold; font-size: 0.9em; color: #007bff;">(2) 定型文投稿実行コード</p>
+    <div class="code-box">javascript:(function(){/* ここに投稿実行のコードを貼る */})();</div>
+    <div class="copy-btn-container">
+        <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
+    </div>
+</div>
 
 </section>
 
