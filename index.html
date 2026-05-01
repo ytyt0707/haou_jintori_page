@@ -102,18 +102,22 @@
             margin: 10px 0;
             display: block;
         }
-        /* 各項目の区切り設定 */
+        /* 箇条書きの四角い枠自体のスタイル（既存のものがあれば調整してください） */
 .history-entry {
-    border-bottom: 1px dashed #ccc; /* 1pxの灰色の破線を下に入れる */
-    padding-bottom: 15px;           /* 線と文字の間の余白 */
-    margin-bottom: 15px;            /* 線と次の項目の間の余白 */
+    border: 1px solid #ddd; /* これが今ある「四角い枠」ですね */
+    padding: 15px;
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 0; /* 下の余白を一旦ゼロにします */
 }
 
-/* 一番最後の項目だけは線を消す（見た目がスッキリします） */
-.history-entry:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
+/* 項目と項目の間にだけ、独立した破線を入れる */
+.history-entry + .history-entry::before {
+    content: "";
+    display: block;
+    border-top: 2px dashed #007bff; /* 青い破線（色は好みで変えてください） */
+    margin: 25px auto;              /* 上下にしっかり隙間を作る */
+    width: 80%;                     /* 線を少し短くするとオシャレです */
 }
     </style>
 
