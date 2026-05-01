@@ -102,6 +102,19 @@
             margin: 10px 0;
             display: block;
         }
+        /* 各項目の区切り設定 */
+.history-entry {
+    border-bottom: 1px dashed #ccc; /* 1pxの灰色の破線を下に入れる */
+    padding-bottom: 15px;           /* 線と文字の間の余白 */
+    margin-bottom: 15px;            /* 線と次の項目の間の余白 */
+}
+
+/* 一番最後の項目だけは線を消す（見た目がスッキリします） */
+.history-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
     </style>
 
     <h3>プレイヤー図鑑Xアカウント</h3>
