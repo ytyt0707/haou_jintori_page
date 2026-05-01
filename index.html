@@ -102,6 +102,29 @@
             margin: 10px 0;
             display: block;
         }
+        /* 1. 四角い箱（カード）自体の設定 */
+.history-entry {
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #eee; /* これが四角い枠 */
+    border-radius: 6px;
+    /* margin-bottom を 0 にして、破線との隙間をコントロールします */
+    margin-bottom: 0; 
+}
+
+/* 2. 四角い箱の「外側」に破線を入れる設定 */
+/* 最後の項目以外に適用されます */
+.history-entry:not(:last-child)::after {
+    content: "";
+    display: block;
+    /* 破線のデザイン */
+    border-bottom: 2px dashed #ccc; 
+    /* 四角と破線の間の距離 */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* 破線の幅（100%だと四角と同じ幅、少し小さくするとオシャレです） */
+    width: 100%; 
+}
     </style>
 
     <h3>プレイヤー図鑑Xアカウント</h3>
