@@ -112,14 +112,54 @@
             <a href="https://hayabusa.open2ch.net/test/read.cgi/livejupiter/1777113143/" class="link-hatena external-link" target="_blank">【おんj陣取り】ネームド図鑑</a>
         </div>
 
-        <!-- 項目 2：画像とリンクの例 -->
-        <div class="history-entry">
-            <span class="history-text">・2026年春の陣 総合ランキング結果</span>
-            <!-- srcに画像のURLを入れてください -->
-            <img src="https://i.imgur.com/TSpCAe6.jpeg" alt="ランキング画像" class="history-img">
-            <a href="https://example.com/link2" class="link-hatena external-link" target="_blank">元スレの記録を見る</a>
-        </div>
+       <!-- 項目 2：3枚並べるランキングの例 -->
+<div class="history-entry">
+    <span class="history-text">・2026年3月30日に総合スレ5で公開されたランキング</span>
+    
+    <style>
+        /* 画像を並べるコンテナ */
+        .img-grid {
+            display: flex;
+            flex-direction: column; /* 基本は縦並び（スマホ用） */
+            gap: 10px;            /* 画像同士の隙間 */
+            margin: 15px 0;
+        }
 
+        /* 画像1枚ずつの設定 */
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* パソコン（画面幅が広いとき）の設定 */
+        @media (min-width: 768px) {
+            .img-grid {
+                flex-direction: row; /* 横並びに変更 */
+            }
+            .grid-item {
+                flex: 1; /* 3枚を均等な幅にする */
+            }
+        }
+    </style>
+
+    <!-- 画像を3枚並べる部分 -->
+    <div class="img-grid">
+        <div class="grid-item">
+            <img src="https://i.imgur.com/TSpCAe6.jpeg" alt="画像1">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.imgur.com/lCX8dny.jpeg" alt="画像2">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.imgur.com/Bd2vTdU.jpeg" alt="画像3">
+        </div>
+    </div>
+
+    <a href="https://open.open2ch.net/test/read.cgi/onjgame/1774330309/884,885" class="link-hatena external-link" target="_blank">おんj陣取り部5</a>
+</div>
         <!-- 項目 3：シンプルな一行の例 -->
         <div class="history-entry">
             <span class="history-text">・〇〇記念 歴代強者図鑑</span>
