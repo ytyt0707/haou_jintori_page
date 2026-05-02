@@ -413,56 +413,143 @@
         <a href="https://let.hatelabo.jp/cutfloss/let/lObs3rvagKAA" class="link-hatena external-link" target="_blank">無効</a>
         
         <div class="code-box">javascript:(function(){
-  /* 1. スタイルでキャンバスの枠組みを固定 */
   const s = document.createElement('style');
   s.innerHTML = `
-    html, body { overflow: hidden !important; height: 100vh !important; margin: 0 !important; background: #0a1628 !important; }
+    /* 1. 画面全体のレイアウト強制固定 */
+    html, body {
+      overflow: hidden !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #0a1628 !important;
+    }
+
+    /* 2. ゲーム画面（キャンバス）を上半分に固定 */
     #canvas {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
       width: 100vw !important;
-      height: 50vh !important; /* 画面半分をゲーム表示エリアに */
+      height: 50vh !important; /* 画面の50%を使用 */
+      object-fit: contain !important;
       z-index: 10 !important;
       background: #14532d !important;
     }
+
+    /* 3. 操作エリア（下半分）の土台 */
     body::after {
       content: "";
       position: fixed;
-      bottom: 0; left: 0; width: 100%; height: 50vh;
-      background: #1e293b; z-index: 5; border-top: 2px solid #334155;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50vh;
+      background: #1e293b; /* 操作パネルっぽい暗めの色 */
+      z-index: 5;
     }
-    #joy-pad { display: flex !important; position: fixed !important; left: 8vw !important; bottom: 8vh !important; width: 40vw !important; height: 40vw !important; z-index: 100 !important; border-radius: 50% !important; }
-    #kick-btn { position: fixed !important; right: 8vw !important; bottom: 8vh !important; width: 28vw !important; height: 28vw !important; z-index: 100 !important; border-radius: 50% !important; background: #ef4444 !important; font-size: 3rem !important; }
-    #jump-btn, #punt-btn { position: fixed !important; right: 10vw !important; bottom: 26vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; background: #3b82f6 !important; }
-    #slide-btn, #catch-btn { position: fixed !important; right: 40vw !important; bottom: 8vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; background: #f59e0b !important; }
-    #hud-container { position: fixed !important; top: 0 !important; z-index: 101 !important; }
+
+    /* 4. ジョイスティックを左下に巨大化配置 */
+    #joy-pad {
+      display: flex !important;
+      position: fixed !important;
+      left: 8vw !important;
+      bottom: 6vh !important;
+      width: 42vw !important;
+      height: 42vw !important;
+      max-width: 220px;
+      max-height: 220px;
+      background: rgba(255,255,255,0.05) !important;
+      border: 5px solid rgba(255,255,255,0.2) !important;
+      border-radius: 50% !important;
+      z-index: 100 !important;
+    }
+    #joy-knob {
+      width: 18vw !important;
+      height: 18vw !important;
+      max-width: 90px;
+      max-height: 90px;
+      background: rgba(255,255,255,0.4) !important;
+    }
+
+    /* 5. 右側のアクションボタン群を押しやすく配置 */
+    /* 全ボタン共通設定 */
+    #kick-btn, #jump-btn, #slide-btn, #catch-btn, #punt-btn {
+      position: fixed !important;
+      z-index: 100 !important;
+      border: 3px solid rgba(255,255,255,0.5) !important;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4) !important;
+    }
+
+    /* メインのキックボタン（一番大きく、右下） */
+    #kick-btn {
+      right: 8vw !important;
+      bottom: 6vh !important;
+      width: 28vw !important;
+      height: 28vw !important;
+      max-width: 130px;
+      max-height: 130px;
+      font-size: 3.5rem !important;
+      background: #ef4444 !important; /* 目立つ赤 */
+    }
+
+    /* ジャンプ / パントボタン（キックの上） */
+    #jump-btn, #punt-btn {
+      right: 10vw !important;
+      bottom: 24vh !important;
+      width: 18vw !important;
+      height: 18vw !important;
+      max-width: 85px;
+      max-height: 85px;
+      background: #3b82f6 !important; /* 青系 */
+    }
+
+    /* スライディング / キャッチ（キックの左） */
+    #slide-btn, #catch-btn {
+      right: 40vw !important;
+      bottom: 6vh !important;
+      width: 18vw !important;
+      height: 18vw !important;
+      max-width: 85px;
+      max-height: 85px;
+      background: #f59e0b !important; /* オレンジ系 */
+    }
+
+    /* チャージリング（溜め蹴り）をキックボタンに重ねる */
+    #kick-charge-ring {
+      position: fixed !important;
+      right: 6vw !important;
+      bottom: 4vh !important;
+      width: 32vw !important;
+      height: 32vw !important;
+      max-width: 150px;
+      max-height: 150px;
+      z-index: 90 !important;
+    }
+
+    /* 6. リプレイ画面を中央に */
+    #replay-canvas {
+      position: fixed !important;
+      top: 25% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 90vw !important;
+      height: auto !important;
+      z-index: 200 !important;
+      border: 3px solid white !important;
+    }
+
+    /* 不要なUIを隠す */
     #keys-hint { display: none !important; }
   `;
   document.head.appendChild(s);
 
-  /* 2. 描画ロジックをハックして、コートを「上にずらす」 */
-  if (typeof render !== 'undefined') {
-    const originalRender = window.render;
-    window.render = function(now) {
-      /* カメラ更新の直後に、垂直オフセット(offY)を強制上書き */
-      /* これにより、背景の隙間を消してコートの端を上に詰める */
-      if (typeof offY !== 'undefined') {
-        // baseOffYが背景を含めた初期位置なので、それを0にするか、
-        // あるいはカメラ追従後のoffYを調整します
-        originalRender(now); 
-        window.offY = 0; // 描画座標の基準を上端に固定
-      } else {
-        originalRender(now);
-      }
-    };
-  }
-
-  /* 3. カメラの挙動を調整（ズームなし、追従をスムーズに） */
-  if(typeof CAM_ZOOM !== 'undefined') window.CAM_ZOOM = 1.0;
-
+  /* ゲーム側で定義されている変数を上書きしてズーム倍率をスマホに最適化 */
+  if(typeof CAM_ZOOM !== 'undefined') window.CAM_ZOOM = 1.05; 
+  
+  /* 強制リサイズ発火 */
   window.dispatchEvent(new Event('resize'));
-  console.log("Soccer Field-Top (Offset Hack) Applied!");
+
+  console.log("Ultimate Soccer Mobile UI Applied!");
 })();</div>
         <div class="copy-btn-container">
             <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
