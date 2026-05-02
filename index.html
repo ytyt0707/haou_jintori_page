@@ -415,141 +415,135 @@
         <div class="code-box">javascript:(function(){
   const s = document.createElement('style');
   s.innerHTML = `
-    /* 1. 画面全体のレイアウト強制固定 */
+    /* 1. ページ全体のスクロールを禁止 */
     html, body {
       overflow: hidden !important;
-      height: 100% !important;
+      height: 100vh !important;
       margin: 0 !important;
-      padding: 0 !important;
-      background: #0a1628 !important;
+      background: #1e293b !important;
     }
 
-    /* 2. ゲーム画面（キャンバス）を上半分に固定 */
+    /* 2. キャンバス自体のサイズと位置を制御 */
     #canvas {
       position: fixed !important;
+      /* ここが重要：背景の余白を無視してコートを上に持ってくるために
+         上端を 0 に固定し、高さを画面の半分に設定 */
       top: 0 !important;
       left: 0 !important;
       width: 100vw !important;
-      height: 50vh !important; /* 画面の50%を使用 */
-      object-fit: contain !important;
+      height: 50vh !important;
+      /* object-fit: cover にすることで、背景の隙間を切り捨てて
+         コートが画面端まで広がるようにします */
+      object-fit: cover !important; 
+      object-position: top !important; /* 上端を基準に合わせる */
       z-index: 10 !important;
-      background: #14532d !important;
     }
 
-    /* 3. 操作エリア（下半分）の土台 */
+    /* 3. スコア表示(HUD)をコートの最上部に重ねる */
+    #hud-container, div[style*="top: 10px"] {
+      position: fixed !important;
+      top: 5px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 100 !important;
+      pointer-events: none !important; /* 操作の邪魔をしない */
+    }
+
+    /* 4. 操作パネル（下半分）の背景デザイン */
     body::after {
-      content: "";
+      content: "MOBILE CONTROLLER";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.05);
+      font-weight: bold;
+      font-size: 2rem;
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 50vh;
-      background: #1e293b; /* 操作パネルっぽい暗めの色 */
+      background: linear-gradient(to bottom, #1e293b, #0f172a);
       z-index: 5;
+      border-top: 4px solid #334155;
     }
 
-    /* 4. ジョイスティックを左下に巨大化配置 */
+    /* 5. ジョイスティック (左下) */
     #joy-pad {
       display: flex !important;
       position: fixed !important;
-      left: 8vw !important;
-      bottom: 6vh !important;
-      width: 42vw !important;
-      height: 42vw !important;
-      max-width: 220px;
-      max-height: 220px;
-      background: rgba(255,255,255,0.05) !important;
-      border: 5px solid rgba(255,255,255,0.2) !important;
-      border-radius: 50% !important;
+      left: 7vw !important;
+      bottom: 7vh !important;
+      width: 45vw !important;
+      height: 45vw !important;
+      max-width: 200px;
+      max-height: 200px;
+      background: rgba(255,255,255,0.08) !important;
+      border: 6px solid rgba(255,255,255,0.2) !important;
       z-index: 100 !important;
     }
     #joy-knob {
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 90px;
-      max-height: 90px;
-      background: rgba(255,255,255,0.4) !important;
+      width: 20vw !important;
+      height: 20vw !important;
+      background: rgba(255,255,255,0.5) !important;
     }
 
-    /* 5. 右側のアクションボタン群を押しやすく配置 */
-    /* 全ボタン共通設定 */
-    #kick-btn, #jump-btn, #slide-btn, #catch-btn, #punt-btn {
-      position: fixed !important;
-      z-index: 100 !important;
-      border: 3px solid rgba(255,255,255,0.5) !important;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4) !important;
-    }
-
-    /* メインのキックボタン（一番大きく、右下） */
+    /* 6. 右側ボタン群（配置を最適化） */
     #kick-btn {
-      right: 8vw !important;
-      bottom: 6vh !important;
-      width: 28vw !important;
-      height: 28vw !important;
-      max-width: 130px;
-      max-height: 130px;
-      font-size: 3.5rem !important;
-      background: #ef4444 !important; /* 目立つ赤 */
+      right: 7vw !important;
+      bottom: 7vh !important;
+      width: 30vw !important;
+      height: 30vw !important;
+      max-width: 120px;
+      max-height: 120px;
+      background: #ef4444 !important;
+      font-size: 3rem !important;
+      z-index: 110 !important;
     }
 
-    /* ジャンプ / パントボタン（キックの上） */
     #jump-btn, #punt-btn {
-      right: 10vw !important;
-      bottom: 24vh !important;
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 85px;
-      max-height: 85px;
-      background: #3b82f6 !important; /* 青系 */
+      right: 8vw !important;
+      bottom: 25vh !important;
+      width: 20vw !important;
+      height: 20vw !important;
+      max-width: 80px;
+      max-height: 80px;
+      background: #3b82f6 !important;
+      z-index: 110 !important;
     }
 
-    /* スライディング / キャッチ（キックの左） */
     #slide-btn, #catch-btn {
       right: 40vw !important;
-      bottom: 6vh !important;
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 85px;
-      max-height: 85px;
-      background: #f59e0b !important; /* オレンジ系 */
+      bottom: 7vh !important;
+      width: 20vw !important;
+      height: 20vw !important;
+      max-width: 80px;
+      max-height: 80px;
+      background: #f59e0b !important;
+      z-index: 110 !important;
     }
 
-    /* チャージリング（溜め蹴り）をキックボタンに重ねる */
     #kick-charge-ring {
       position: fixed !important;
-      right: 6vw !important;
-      bottom: 4vh !important;
-      width: 32vw !important;
-      height: 32vw !important;
-      max-width: 150px;
-      max-height: 150px;
-      z-index: 90 !important;
+      right: 5vw !important;
+      bottom: 5vh !important;
+      width: 34vw !important;
+      height: 34vw !important;
+      max-width: 140px;
+      max-height: 140px;
+      z-index: 105 !important;
     }
 
-    /* 6. リプレイ画面を中央に */
-    #replay-canvas {
-      position: fixed !important;
-      top: 25% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      width: 90vw !important;
-      height: auto !important;
-      z-index: 200 !important;
-      border: 3px solid white !important;
-    }
-
-    /* 不要なUIを隠す */
-    #keys-hint { display: none !important; }
+    /* 不要な要素 */
+    #keys-hint, #footer, footer { display: none !important; }
   `;
   document.head.appendChild(s);
 
-  /* ゲーム側で定義されている変数を上書きしてズーム倍率をスマホに最適化 */
-  if(typeof CAM_ZOOM !== 'undefined') window.CAM_ZOOM = 1.05; 
-  
-  /* 強制リサイズ発火 */
-  window.dispatchEvent(new Event('resize'));
+  /* カメラズームを調整して、コートがちょうどよく収まるようにする */
+  if(typeof CAM_ZOOM !== 'undefined') window.CAM_ZOOM = 1.0;
 
-  console.log("Ultimate Soccer Mobile UI Applied!");
+  window.dispatchEvent(new Event('resize'));
+  console.log("Soccer Field-Top UI Applied!");
 })();</div>
         <div class="copy-btn-container">
             <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
