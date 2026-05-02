@@ -413,143 +413,79 @@
         <a href="https://let.hatelabo.jp/cutfloss/let/lObs3rvagKAA" class="link-hatena external-link" target="_blank">無効</a>
         
         <div class="code-box">javascript:(function(){
-  const s = document.createElement('style');
-  s.innerHTML = `
-    /* 1. 画面全体のレイアウト強制固定 */
-    html, body {
-      overflow: hidden !important;
-      height: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      background: #0a1628 !important;
-    }
+  /* 1. ゲームの内部計算（resize関数）を上書き */
+  window.resize = function() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    if (!field) return;
+    
+    /* 上半分(50vh)に収まるスケールを計算 */
+    const sx = (window.innerWidth - 16) / field.w;
+    const sy = (window.innerHeight * 0.5 - 16) / field.h;
+    baseScale = Math.min(sx, sy);
+    
+    /* 横は中央、縦は「最上部(0)」に固定 */
+    baseOffX  = (window.innerWidth - field.w * baseScale) / 2;
+    baseOffY  = 0; 
+    
+    scale = baseScale; offX = baseOffX; offY = baseOffY;
+    if(typeof emojiImgCache !== 'undefined') emojiImgCache.clear();
+  };
 
-    /* 2. ゲーム画面（キャンバス）を上半分に固定 */
-    #canvas {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 50vh !important; /* 画面の50%を使用 */
-      object-fit: contain !important;
-      z-index: 10 !important;
-      background: #14532d !important;
+  /* 2. 試合中のカメラ追従ロジックを「画面上部」基準に書き換え */
+  window.updateCamera = function() {
+    const me = (joined && myId) ? players[myId] : null;
+    const useCam = me && me.x != null && (phase === 'playing' || phase === 'goal' || phase === 'countdown');
+    if (!useCam || !field) {
+      scale = baseScale; offX = baseOffX; offY = baseOffY;
+      camSnapped = false;
+      return;
     }
+    if (!camSnapped) { camX = me.x; camY = me.y; camSnapped = true; }
+    const tx = (ball && ball.x != null) ? me.x * 0.7 + ball.x * 0.3 : me.x;
+    const ty = (ball && ball.y != null) ? me.y * 0.7 + ball.y * 0.3 : me.y;
+    camX += (tx - camX) * CAM_LERP;
+    camY += (ty - camY) * CAM_LERP;
+    
+    const cs = baseScale * CAM_ZOOM;
+    const halfW = canvas.width / (2 * cs);
+    /* 画面の「半分」の高さの、さらに「半分」を基準にする */
+    const halfH = (canvas.height * 0.5) / (2 * cs);
+    
+    const cx = (2 * halfW < field.w) ? Math.max(halfW, Math.min(field.w - halfW, camX)) : field.w / 2;
+    const cy = (2 * halfH < field.h) ? Math.max(halfH, Math.min(field.h - halfH, camY)) : field.h / 2;
+    
+    scale = cs;
+    offX = canvas.width / 2 - cx * cs;
+    /* 描画位置を「画面中央」ではなく「画面の上から1/4（上半分エリアの中央）」にする */
+    offY = (canvas.height * 0.25) - cy * cs;
+  };
 
-    /* 3. 操作エリア（下半分）の土台 */
+  /* 3. 操作パネルとボタンの見た目を整える（CSS） */
+  const style = document.createElement('style');
+  style.innerHTML = `
+    #canvas { position: fixed !important; top: 0 !important; left: 0 !important; z-index: 10 !important; }
+    #hud-container { top: 5px !important; z-index: 100 !important; transform: scale(0.8); }
+    
+    /* 下半分の操作エリア */
     body::after {
-      content: "";
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50vh;
-      background: #1e293b; /* 操作パネルっぽい暗めの色 */
-      z-index: 5;
+      content: ""; position: fixed; bottom: 0; left: 0; width: 100%; height: 50vh;
+      background: #111827; border-top: 2px solid #374151; z-index: 5;
     }
 
-    /* 4. ジョイスティックを左下に巨大化配置 */
-    #joy-pad {
-      display: flex !important;
-      position: fixed !important;
-      left: 8vw !important;
-      bottom: 6vh !important;
-      width: 42vw !important;
-      height: 42vw !important;
-      max-width: 220px;
-      max-height: 220px;
-      background: rgba(255,255,255,0.05) !important;
-      border: 5px solid rgba(255,255,255,0.2) !important;
-      border-radius: 50% !important;
-      z-index: 100 !important;
-    }
-    #joy-knob {
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 90px;
-      max-height: 90px;
-      background: rgba(255,255,255,0.4) !important;
-    }
-
-    /* 5. 右側のアクションボタン群を押しやすく配置 */
-    /* 全ボタン共通設定 */
-    #kick-btn, #jump-btn, #slide-btn, #catch-btn, #punt-btn {
-      position: fixed !important;
-      z-index: 100 !important;
-      border: 3px solid rgba(255,255,255,0.5) !important;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4) !important;
-    }
-
-    /* メインのキックボタン（一番大きく、右下） */
-    #kick-btn {
-      right: 8vw !important;
-      bottom: 6vh !important;
-      width: 28vw !important;
-      height: 28vw !important;
-      max-width: 130px;
-      max-height: 130px;
-      font-size: 3.5rem !important;
-      background: #ef4444 !important; /* 目立つ赤 */
-    }
-
-    /* ジャンプ / パントボタン（キックの上） */
-    #jump-btn, #punt-btn {
-      right: 10vw !important;
-      bottom: 24vh !important;
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 85px;
-      max-height: 85px;
-      background: #3b82f6 !important; /* 青系 */
-    }
-
-    /* スライディング / キャッチ（キックの左） */
-    #slide-btn, #catch-btn {
-      right: 40vw !important;
-      bottom: 6vh !important;
-      width: 18vw !important;
-      height: 18vw !important;
-      max-width: 85px;
-      max-height: 85px;
-      background: #f59e0b !important; /* オレンジ系 */
-    }
-
-    /* チャージリング（溜め蹴り）をキックボタンに重ねる */
-    #kick-charge-ring {
-      position: fixed !important;
-      right: 6vw !important;
-      bottom: 4vh !important;
-      width: 32vw !important;
-      height: 32vw !important;
-      max-width: 150px;
-      max-height: 150px;
-      z-index: 90 !important;
-    }
-
-    /* 6. リプレイ画面を中央に */
-    #replay-canvas {
-      position: fixed !important;
-      top: 25% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      width: 90vw !important;
-      height: auto !important;
-      z-index: 200 !important;
-      border: 3px solid white !important;
-    }
-
-    /* 不要なUIを隠す */
+    /* ジョイスティックとボタンを巨大化 */
+    #joy-pad { display: flex !important; position: fixed !important; left: 10vw !important; bottom: 8vh !important; width: 40vw !important; height: 40vw !important; z-index: 100 !important; border: 4px solid #666 !important; border-radius: 50% !important; }
+    #kick-btn { position: fixed !important; right: 10vw !important; bottom: 8vh !important; width: 25vw !important; height: 25vw !important; z-index: 100 !important; border-radius: 50% !important; background: #dc2626 !important; font-size: 2rem !important; }
+    #jump-btn, #punt-btn { position: fixed !important; right: 12vw !important; bottom: 26vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; border-radius: 50% !important; background: #2563eb !important; }
+    #slide-btn, #catch-btn { position: fixed !important; right: 38vw !important; bottom: 8vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; border-radius: 50% !important; background: #d97706 !important; }
+    #kick-charge-ring { position: fixed !important; right: 8vw !important; bottom: 6vh !important; width: 29vw !important; height: 29vw !important; z-index: 90 !important; }
     #keys-hint { display: none !important; }
   `;
-  document.head.appendChild(s);
+  document.head.appendChild(style);
 
-  /* ゲーム側で定義されている変数を上書きしてズーム倍率をスマホに最適化 */
-  if(typeof CAM_ZOOM !== 'undefined') window.CAM_ZOOM = 1.05; 
-  
-  /* 強制リサイズ発火 */
-  window.dispatchEvent(new Event('resize'));
-
-  console.log("Ultimate Soccer Mobile UI Applied!");
+  /* 初期化実行 */
+  window.resize();
+  console.log("Internal Logic Overwritten: Field pinned to top!");
 })();</div>
         <div class="copy-btn-container">
             <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
