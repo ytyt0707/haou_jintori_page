@@ -418,14 +418,11 @@
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
     if (!field) return;
-    
     const sx = (window.innerWidth - 16) / field.w;
     const sy = (window.innerHeight * 0.5 - 16) / field.h;
     baseScale = Math.min(sx, sy);
-    
     baseOffX  = (window.innerWidth - field.w * baseScale) / 2;
-    baseOffY  = 0; /* 非試合時の縦位置をトップに固定 */
-    
+    baseOffY  = 0;
     scale = baseScale; offX = baseOffX; offY = baseOffY;
     if(typeof emojiImgCache !== 'undefined') emojiImgCache.clear();
   };
@@ -434,52 +431,94 @@
   window.updateCamera = function() {
     const me = (joined && myId) ? players[myId] : null;
     const useCam = me && me.x != null && (phase === 'playing' || phase === 'goal' || phase === 'countdown');
-    
     if (!useCam || !field) {
       scale = baseScale; offX = baseOffX; offY = baseOffY;
       camSnapped = false;
       return;
     }
-    
     if (!camSnapped) { camX = me.x; camY = me.y; camSnapped = true; }
-    
-    /* 左右のターゲット計算 */
     const tx = (ball && ball.x != null) ? me.x * 0.7 + ball.x * 0.3 : me.x;
     camX += (tx - camX) * CAM_LERP;
-    
     const cs = baseScale * CAM_ZOOM;
     const halfW = canvas.width / (2 * cs);
-    
-    /* X座標（左右）のリミッターのみ計算 */
     const cx = (2 * halfW < field.w) ? Math.max(halfW, Math.min(field.w - halfW, camX)) : field.w / 2;
-    
     scale = cs;
-    /* 横方向(offX)はプレイヤーに合わせて動く */
     offX = canvas.width / 2 - cx * cs;
-    /* 縦方向(offY)は常に0固定！これで上下移動がなくなります */
     offY = 0; 
   };
 
-  /* 3. 操作パネル・ボタンの調整（前回同様） */
+  /* 3. 操作パネル・ボタンの調整（間隔をさらに広げたVer.） */
   const style = document.createElement('style');
   style.innerHTML = `
     #canvas { position: fixed !important; top: 0 !important; left: 0 !important; z-index: 10 !important; }
     #hud-container { top: 5px !important; z-index: 100 !important; transform: scale(0.8); }
     body::after {
       content: ""; position: fixed; bottom: 0; left: 0; width: 100%; height: 50vh;
-      background: #111827; border-top: 2px solid #374151; z-index: 5;
+      background: #0f172a; border-top: 2px solid #334155; z-index: 5;
     }
-    #joy-pad { display: flex !important; position: fixed !important; left: 10vw !important; bottom: 8vh !important; width: 40vw !important; height: 40vw !important; z-index: 100 !important; border: 4px solid #666 !important; border-radius: 50% !important; }
-    #kick-btn { position: fixed !important; right: 10vw !important; bottom: 8vh !important; width: 25vw !important; height: 25vw !important; z-index: 100 !important; border-radius: 50% !important; background: #dc2626 !important; font-size: 2rem !important; }
-    #jump-btn, #punt-btn { position: fixed !important; right: 12vw !important; bottom: 26vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; border-radius: 50% !important; background: #2563eb !important; }
-    #slide-btn, #catch-btn { position: fixed !important; right: 38vw !important; bottom: 8vh !important; width: 18vw !important; height: 18vw !important; z-index: 100 !important; border-radius: 50% !important; background: #d97706 !important; }
-    #kick-charge-ring { position: fixed !important; right: 8vw !important; bottom: 6vh !important; width: 29vw !important; height: 29vw !important; z-index: 90 !important; }
+
+    /* ジョイスティックをさらに「左端」へ */
+    #joy-pad { 
+      display: flex !important; 
+      position: fixed !important; 
+      left: 5vw !important; /* 10vw -> 5vw に変更して端へ */
+      bottom: 8vh !important; 
+      width: 42vw !important; 
+      height: 42vw !important; 
+      z-index: 100 !important; 
+      border: 4px solid rgba(255,255,255,0.2) !important; 
+      border-radius: 50% !important; 
+    }
+
+    /* メインキックをさらに「右端」へ */
+    #kick-btn { 
+      position: fixed !important; 
+      right: 5vw !important; /* 10vw -> 5vw に変更して端へ */
+      bottom: 8vh !important; 
+      width: 28vw !important; 
+      height: 28vw !important; 
+      z-index: 100 !important; 
+      border-radius: 50% !important; 
+      background: #dc2626 !important; 
+      box-shadow: 0 4px 0 #991b1b !important;
+    }
+
+    /* ジャンプ/パント（キックの真上） */
+    #jump-btn, #punt-btn { 
+      position: fixed !important; 
+      right: 7vw !important; 
+      bottom: 28vh !important; 
+      width: 20vw !important; 
+      height: 20vw !important; 
+      z-index: 100 !important; 
+      background: #2563eb !important; 
+    }
+
+    /* スライド/キャッチ（キックの左隣、少し離す） */
+    #slide-btn, #catch-btn { 
+      position: fixed !important; 
+      right: 36vw !important; /* 38vw -> 36vw でキックに寄せすぎず調整 */
+      bottom: 8vh !important; 
+      width: 20vw !important; 
+      height: 20vw !important; 
+      z-index: 100 !important; 
+      background: #d97706 !important; 
+    }
+
+    #kick-charge-ring { 
+      position: fixed !important; 
+      right: 3vw !important; 
+      bottom: 6vh !important; 
+      width: 32vw !important; 
+      height: 32vw !important; 
+      z-index: 90 !important; 
+    }
     #keys-hint { display: none !important; }
   `;
   document.head.appendChild(style);
 
   window.resize();
-  console.log("X-Axis Follow Only: Fixed Y to Top!");
+  console.log("Ultimate Mobile Layout: Finished!");
 })();</div>
         <div class="copy-btn-container">
             <button class="copy-btn" onclick="copyCode(this)">コードをコピーする</button>
