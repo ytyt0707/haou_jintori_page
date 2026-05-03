@@ -256,22 +256,26 @@
             transform: translate(2px, -2px);
         }
 
-        /* コードボックス */
-        .code-box {
-            background-color: #2d2d2d;
-            color: #ccc;
-            padding: 15px;
-            border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.85em;
-            overflow-x: auto;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border-left: 4px solid #007bff;
-        }
-
+        /* コードボックス（スクロール対応版） */
+.code-box {
+    background-color: #2d2d2d;
+    color: #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85em;
+    overflow-x: auto; /* 横スクロール（長い1行用） */
+    
+    /* ↓ここがポイント！ */
+    max-height: 150px; /* ボックスの最大高さ（お好みで調整してください） */
+    overflow-y: auto;  /* 縦に長くなったらスクロールバーを出す */
+    
+    margin-top: 15px;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    border-left: 4px solid #007bff;
+}
         /* コピーボタン（左寄せに配置） */
         .copy-btn-container {
             text-align: left; /* 左寄せに変更 */
@@ -308,6 +312,7 @@
         .link-hatena:hover {
             text-decoration: underline;
         }
+        
     </style>
 
     <h3>ブックマークレット導入方法</h3>
